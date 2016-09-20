@@ -1,6 +1,6 @@
-import sys, thread, Queue, re, urllib, urlparse, time, os, sys
+import sys, _thread, queue, re, urllib, urllib.parse, time, os, sys
 dupcheck = set()  
-q = Queue.Queue(100) 
+q = queue.Queue(100) 
 q.put(sys.argv[1]) 
 def queueURLs(html, origLink): 
     for url in re.findall('''<a[^>]+href=["'](.[^"']+)["']''', html, re.I): 
@@ -21,5 +21,5 @@ def getHTML(link):
     except Exception:
         pass
 while True:
-    thread.start_new_thread( getHTML, (q.get(),)) 
+    _thread.start_new_thread( getHTML, (q.get(),)) 
     time.sleep(0.5)
